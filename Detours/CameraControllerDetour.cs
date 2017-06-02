@@ -46,11 +46,7 @@ namespace InvertXMouse.Detours
         {
             if (_redirects == null) return;
 
-            foreach(var redirect in _redirects)
-            {
-                RedirectionHelper.RevertRedirect(redirect.Key, redirect.Value);
-            }
-
+            RedirectionUtil.RevertRedirects(_redirects);
             _redirects = null;
 
             _logger.Info("CameraController hook removed.");
