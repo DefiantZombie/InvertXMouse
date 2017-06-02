@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace InvertXMouse.Detours
 {
-    public class CameraControllerDetour
+    public class CameraControllerDetour : CameraController
     {
         private static Dictionary<MethodInfo, RedirectCallsState> _redirects;
         private static bool _initialized = false;
@@ -35,6 +35,11 @@ namespace InvertXMouse.Detours
             _redirects = null;
             _initialized = false;
         }
+
+
+        [RedirectMethod]
+        private void HandleMouseEvents(float multiplier)
+        {
             throw new NotImplementedException();
         }
     }
