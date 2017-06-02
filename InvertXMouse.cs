@@ -1,21 +1,51 @@
 ﻿using ICities;
+using InvertXMouse.Configuration;
+using InvertXMouse.Detours;
+using InvertXMouse.Logging;
+using System;
+using System.Collections;
+using SexyFishHorse.CitiesSkylines.Infrastructure;
+using SexyFishHorse.CitiesSkylines.Logger;
+using UnityEngine;
+using ILogger = SexyFishHorse.CitiesSkylines.Logger.ILogger;
 
 
 namespace InvertXMouse
 {
-    public class InvertXMouse : IUserMod
+    public class InvertXMouse : UserModBase
     {
-        public static bool InvertXMouseOption = true;
+        public const string ModName = "Invert X Mouse";
 
-        public string Name
+        private readonly ILogger _logger;
+
+
+        public override string Name
         {
-            get
+            get { return ModName; }
+        }
+
+        public override string Description
+        {
+            get { return "Adds the missing Invert X option for the camera."; }
+        }
+
+
+        public InvertXMouse()
+        {
+            try
             {
-                DebugLog.Init();
-                return "Invert X Mouse";
+                _logger = PanelLogger.Instance;
+                _logger.Info("InvertXMouse created");
+
+                ModConfig.Instance.Logger = _logger;
+
+                OptionsPanelManager = new OptionsPanelManager(_logger);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogException(ex);
+                throw;
             }
         }
-    
-        public string Description => "Adds the missing Invert X option for the camera.";
     }
 }

@@ -1,6 +1,5 @@
 ﻿using ICities;
 using InvertXMouse.Detours;
-using System.Reflection;
 
 
 namespace InvertXMouse
@@ -11,7 +10,6 @@ namespace InvertXMouse
         {
             base.OnLevelLoaded(mode);
             CameraControllerDetour.Hook();
-            DebugLog.Log("[IXM] Hooked");
         }
 
 
@@ -19,7 +17,6 @@ namespace InvertXMouse
         {
             base.OnLevelUnloading();
             CameraControllerDetour.Unhook();
-            DebugLog.Close();
         }
     }
 }

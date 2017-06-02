@@ -1,10 +1,15 @@
 ﻿using ColossalFramework;
 using ColossalFramework.UI;
-using InvertXMouse.Redirection;
+using InvertXMouse.Configuration;
+using InvertXMouse.Logging;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using SexyFishHorse.CitiesSkylines.Logger;
+using SexyFishHorse.CitiesSkylines.Redirection;
+using SexyFishHorse.CitiesSkylines.Redirection.Attributes;
 using UnityEngine;
+using ILogger = SexyFishHorse.CitiesSkylines.Logger.ILogger;
 
 
 namespace InvertXMouse.Detours
@@ -22,12 +27,18 @@ namespace InvertXMouse.Detours
         private static FieldInfo _velocityField = typeof(CameraController).GetField("m_velocity", BindingFlags.NonPublic | BindingFlags.Instance);
         private static FieldInfo _edgeScrollSensitivity = typeof(CameraController).GetField("m_edgeScrollSensitivity", BindingFlags.NonPublic | BindingFlags.Instance);
 
+        private static ILogger _logger;
 
-        public static void Hook()
+
+        public static void Hook(ILogger logger = null)
         {
             if (_redirects != null) return;
 
-            _redirects = RedirectionUtility.RedirectType(typeof(CameraControllerDetour));
+            _logger = logger ?? PanelLogger.Instance;
+
+            _redirects = RedirectionUtil.RedirectType(typeof(CameraControllerDetour));
+
+            _logger.Info("CameraController hook set.");
         }
 
 
@@ -35,12 +46,10 @@ namespace InvertXMouse.Detours
         {
             if (_redirects == null) return;
 
-            foreach(var redirect in _redirects)
-            {
-                RedirectionHelper.RevertRedirect(redirect.Key, redirect.Value);
-            }
-
+            RedirectionUtil.RevertRedirects(_redirects);
             _redirects = null;
+
+            _logger.Info("CameraController hook removed.");
         }
 
 
@@ -50,9 +59,11 @@ namespace InvertXMouse.Detours
             var invertYMouse = (SavedBool)_invertYMouseField.GetValue(this);
 
             Vector2 vector2 = Vector2.zero;
+            var invertXMouse = ModConfig.Instance.GetSetting<bool>(SettingKeys.InvertXMouse);
+
             if (((SavedInputKey)_cameraMouseRotateField.GetValue(this)).IsPressed() || SteamController.GetDigitalAction(SteamController.DigitalInput.RotateMouse))
             {
-                var mouseX = !InvertXMouse.InvertXMouseOption ? Input.GetAxis("Mouse X") : -Input.GetAxis("Mouse X");
+                var mouseX = !invertXMouse ? Input.GetAxis("Mouse X") : -Input.GetAxis("Mouse X");
                 var mouseY = !(bool)invertYMouse ? Input.GetAxis("Mouse Y") : -Input.GetAxis("Mouse Y");
                 vector2 = new Vector2(mouseX, mouseY);
 
@@ -80,7 +91,7 @@ namespace InvertXMouse.Detours
                 if ((bool)invertYMouse)
                     num = -num;
 
-                if (InvertXMouse.InvertXMouseOption)
+                if (invertXMouse)
                     axis = -axis;
 
                 if ((double)axis != 0.0 || (double)num != 0.0)

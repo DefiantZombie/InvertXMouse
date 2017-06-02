@@ -38,6 +38,18 @@
       <HintPath>..\..\..\..\..\Games\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ICities.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SexyFishHorse.CitiesSkylines.Infrastructure, Version=1.0.6203.30709, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SexyFishHorse.CitiesSkylines.Infrastructure.1.0.6203.30709\lib\net35\SexyFishHorse.CitiesSkylines.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SexyFishHorse.CitiesSkylines.Logger, Version=1.0.6198.39436, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SexyFishHorse.CitiesSkylines.Logger.1.0.6198.39436\lib\net35\SexyFishHorse.CitiesSkylines.Logger.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SexyFishHorse.CitiesSkylines.Redirection, Version=1.0.6212.2077, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SexyFishHorse.CitiesSkylines.Redirection.1.0.6212.2077\lib\net35\SexyFishHorse.CitiesSkylines.Redirection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\Games\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
@@ -60,25 +72,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DebugLog.cs" />
+    <Compile Include="Configuration\ModConfig.cs" />
+    <Compile Include="Configuration\OptionsPanelManager.cs" />
+    <Compile Include="Configuration\SettingKeys.cs" />
     <Compile Include="InvertXMouse.cs" />
+    <Compile Include="Logging\PanelLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LoadingExtension.cs" />
     <Compile Include="Detours\CameraControllerDetour.cs" />
-    <Compile Include="Redirection\RedirectionHelper.cs" />
-    <Compile Include="Redirection\Tuple.cs" />
-    <Compile Include="Redirection\TargetTypeAttribute.cs" />
-    <Compile Include="Redirection\RedirectMethodAttribute.cs" />
-    <Compile Include="Redirection\RedirectReversedAttribute.cs" />
-    <Compile Include="Redirection\RedirectionUtility.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)"
 del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)\$(TargetFileName)"
 xcopy /Y "$(TargetPath)" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)\"
-if $(ConfigurationName) == Release xcopy /Y "$(TargetPath)" "$(SolutionDir)Resources\$(SolutionName)\"
+xcopy /Y "$(TargetDir)SexyFishHorse.CitiesSkylines.Infrastructure.dll" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)\"
+xcopy /Y "$(TargetDir)SexyFishHorse.CitiesSkylines.Logger.dll" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)\"
+xcopy /Y "$(TargetDir)SexyFishHorse.CitiesSkylines.Redirection.dll" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)\"
 if $(ConfigurationName) == Debug "E:\Development\Utilities\pdb2mdb\pdb2mdb.exe" "$(TargetFileName)"
 if $(ConfigurationName) == Debug xcopy /Y "$(TargetDir)$(TargetName).pdb" "e:\Users\Adam\AppData\Local\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)\"
 if $(ConfigurationName) == Debug xcopy /Y "$(TargetDir)$(TargetName).dll.mdb" "e:\Users\Adam\AppData\Local\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)\"
