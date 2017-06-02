@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>InvertXMouse</RootNamespace>
     <AssemblyName>InvertXMouse</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,21 +29,33 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\Library\Application Support\Steam\steamapps\common\Cities_Skylines\Cities.app\Contents\Resources\Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="ICities">
       <HintPath>..\..\..\..\..\Library\Application Support\Steam\steamapps\common\Cities_Skylines\Cities.app\Contents\Resources\Data\Managed\ICities.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\Library\Application Support\Steam\steamapps\common\Cities_Skylines\Cities.app\Contents\Resources\Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>..\..\..\..\..\Library\Application Support\Steam\steamapps\common\Cities_Skylines\Cities.app\Contents\Resources\Data\Managed\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="ColossalManaged">
       <HintPath>..\..\..\..\..\Library\Application Support\Steam\steamapps\common\Cities_Skylines\Cities.app\Contents\Resources\Data\Managed\ColossalManaged.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\Library\Application Support\Steam\steamapps\common\Cities_Skylines\Cities.app\Contents\Resources\Data\Managed\System.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>..\..\..\..\..\Library\Application Support\Steam\steamapps\common\Cities_Skylines\Cities.app\Contents\Resources\Data\Managed\System.Xml.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
