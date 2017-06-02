@@ -1,8 +1,12 @@
 ﻿using ICities;
+using InvertXMouse.Configuration;
+using InvertXMouse.Logging;
 using System;
 using System.Collections;
 using SexyFishHorse.CitiesSkylines.Infrastructure;
+using SexyFishHorse.CitiesSkylines.Logger;
 using UnityEngine;
+using ILogger = SexyFishHorse.CitiesSkylines.Logger.ILogger;
 
 
 namespace InvertXMouse
@@ -27,7 +31,20 @@ namespace InvertXMouse
 
         public InvertXMouse()
         {
-            
+            try
+            {
+                _logger = PanelLogger.Instance;
+                _logger.Info("InvertXMouse created");
+
+                ModConfig.Instance.Logger = _logger;
+
+                OptionsPanelManager = new OptionsPanelManager(_logger);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogException(ex);
+                throw;
+            }
         }
     }
 }
