@@ -1,5 +1,6 @@
 ﻿using ICities;
 using InvertXMouse.Configuration;
+using InvertXMouse.Detours;
 using InvertXMouse.Logging;
 using System;
 using System.Collections;
@@ -45,6 +46,20 @@ namespace InvertXMouse
                 _logger.LogException(ex);
                 throw;
             }
+        }
+
+
+        public void OnEnabled()
+        {
+            CameraControllerDetour.Hook();
+            _logger.Info("Enabled");
+        }
+
+
+        public void OnDisabled()
+        {
+            CameraControllerDetour.Unhook();
+            _logger.Info("Disabled");
         }
     }
 }
