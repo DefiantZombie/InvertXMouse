@@ -1,9 +1,10 @@
 ﻿using ColossalFramework;
 using ColossalFramework.UI;
-using InvertXMouse.Redirection;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using SexyFishHorse.CitiesSkylines.Redirection;
+using SexyFishHorse.CitiesSkylines.Redirection.Attributes;
 using UnityEngine;
 
 
@@ -27,7 +28,7 @@ namespace InvertXMouse.Detours
         {
             if (_redirects != null) return;
 
-            _redirects = RedirectionUtility.RedirectType(typeof(CameraControllerDetour));
+            _redirects = RedirectionUtil.RedirectType(typeof(CameraControllerDetour));
         }
 
 
