@@ -74,4 +74,14 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)"
+del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)\$(TargetFileName)"
+xcopy /Y "$(TargetPath)" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)\"
+if $(ConfigurationName) == Release xcopy /Y "$(TargetPath)" "$(SolutionDir)Resources\$(SolutionName)\"
+if $(ConfigurationName) == Debug "E:\Development\Utilities\pdb2mdb\pdb2mdb.exe" "$(TargetFileName)"
+if $(ConfigurationName) == Debug xcopy /Y "$(TargetDir)$(TargetName).pdb" "e:\Users\Adam\AppData\Local\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)\"
+if $(ConfigurationName) == Debug xcopy /Y "$(TargetDir)$(TargetName).dll.mdb" "e:\Users\Adam\AppData\Local\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)\"
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>
