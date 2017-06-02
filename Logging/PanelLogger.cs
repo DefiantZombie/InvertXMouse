@@ -14,6 +14,11 @@ namespace InvertXMouse.Logging
 
         public static bool Enabled { get; set; }
 
+        public static ILogger Instance
+        {
+            get { return _internalLogger ?? (_internalLogger = new PanelLogger()); }
+        }
+
 
         private PanelLogger()
         {
