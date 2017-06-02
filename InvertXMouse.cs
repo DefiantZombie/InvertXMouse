@@ -1,7 +1,11 @@
-﻿using System;
+﻿using ICities;
+
+
 namespace InvertXMouse
 {
-    public class InvertXMouse
+    public class InvertXMouse : IUserMod
     {
+        public string Name => "Invert X Mouse";
+        public string Description => "Adds the missing Invert X option for the camera.";
     }
 }
