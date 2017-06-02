@@ -11,7 +11,7 @@ namespace InvertXMouse
 
         public static void Init()
         {
-            _logFile = File.CreateText("log.txt");
+            _logFile = File.CreateText(@"e:\log.txt");
             _logFile.AutoFlush = true;
         }
 
