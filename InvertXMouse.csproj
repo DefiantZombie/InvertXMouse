@@ -53,6 +53,7 @@
     <Compile Include="Detours\CameraControllerDetour.cs" />
     <Compile Include="Redirection\RedirectionHelper.cs" />
     <Compile Include="Redirection\Tuple.cs" />
+    <Compile Include="Redirection\TargetTypeAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Detours\" />
