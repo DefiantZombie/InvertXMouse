@@ -55,6 +55,7 @@
     <Compile Include="Redirection\Tuple.cs" />
     <Compile Include="Redirection\TargetTypeAttribute.cs" />
     <Compile Include="Redirection\RedirectMethodAttribute.cs" />
+    <Compile Include="Redirection\RedirectReversedAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Detours\" />
