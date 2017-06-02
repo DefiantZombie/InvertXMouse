@@ -1,17 +1,27 @@
 ﻿using ICities;
 using InvertXMouse.Detours;
-using System.Reflection;
+using InvertXMouse.Logging;
+using SexyFishHorse.CitiesSkylines.Logger;
 
 
 namespace InvertXMouse
 {
     public class LoadingExtension : LoadingExtensionBase
     {
+        private readonly ILogger _logger;
+
+
+        public LoadingExtension()
+        {
+            _logger = PanelLogger.Instance;
+        }
+
+
         public override void OnLevelLoaded(LoadMode mode)
         {
             base.OnLevelLoaded(mode);
             CameraControllerDetour.Hook();
-            DebugLog.Log("[IXM] Hooked");
+            _logger.Info("Hook set.");
         }
 
 
@@ -19,7 +29,7 @@ namespace InvertXMouse
         {
             base.OnLevelUnloading();
             CameraControllerDetour.Unhook();
-            DebugLog.Close();
+            _logger.Info("Hook removed.");
         }
     }
 }
