@@ -21,7 +21,7 @@ THE SOFTWARE.
 using System;
 using System.Reflection;
 
-namespace TotalyFreeCamera.Redirection
+namespace InvertXMouse.Redirection
 {
 
 	public struct RedirectCallsState
