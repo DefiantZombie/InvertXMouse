@@ -52,6 +52,7 @@
     <Compile Include="LoadingExtension.cs" />
     <Compile Include="Detours\CameraControllerDetour.cs" />
     <Compile Include="Redirection\RedirectionHelper.cs" />
+    <Compile Include="Redirection\Tuple.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Detours\" />
