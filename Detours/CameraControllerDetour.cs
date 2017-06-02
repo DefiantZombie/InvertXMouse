@@ -13,10 +13,8 @@ namespace InvertXMouse.Detours
     public class CameraControllerDetour : CameraController
     {
         private static Dictionary<MethodInfo, RedirectCallsState> _redirects;
-        private static bool _initialized = false;
 
         private static FieldInfo _cameraMouseRotateField = typeof(CameraController).GetField("m_cameraMouseRotate", BindingFlags.NonPublic | BindingFlags.Instance);
-        //private static SavedInputKey _cameraMouseRotate;
         private static FieldInfo _invertYMouseField = typeof(CameraController).GetField("m_invertYMouse", BindingFlags.NonPublic | BindingFlags.Instance);
         private static FieldInfo _angleVelocityField = typeof(CameraController).GetField("m_angleVelocity", BindingFlags.NonPublic | BindingFlags.Instance);
         private static FieldInfo _mouseSensitivityField = typeof(CameraController).GetField("m_mouseSensitivity", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -43,22 +41,13 @@ namespace InvertXMouse.Detours
             }
 
             _redirects = null;
-            _initialized = false;
         }
 
 
         [RedirectMethod]
         private void HandleMouseEvents(float multiplier)
         {
-            if(!_initialized)
-            {
-                DebugLog.Log("[IXM] Detour initialized.");
-                //_cameraMouseRotate = (SavedInputKey)_cameraMouseRotateField.GetValue(this);
-                _initialized = true;
-            }
-
             var invertYMouse = (SavedBool)_invertYMouseField.GetValue(this);
-            //DebugLog.Log($"[IXM] Invert Y Mouse: {invertYMouse}");
 
             Vector2 vector2 = Vector2.zero;
             if (((SavedInputKey)_cameraMouseRotateField.GetValue(this)).IsPressed() || SteamController.GetDigitalAction(SteamController.DigitalInput.RotateMouse))
@@ -81,8 +70,6 @@ namespace InvertXMouse.Detours
 
             var angleVelocity = (Vector2)_angleVelocityField.GetValue(this);
             var mouseSensitivity = (SavedFloat)_mouseSensitivityField.GetValue(this);
-            //DebugLog.Log($"[IXM] angleVelocity: {angleVelocity}, mouseSensitivity: {mouseSensitivity}");
-
             _angleVelocityField.SetValue(this, angleVelocity + vector2 * (12f * (float)mouseSensitivity * multiplier));
 
             if(this.m_analogController)
@@ -101,8 +88,6 @@ namespace InvertXMouse.Detours
             }
 
             var edgeScrolling = (SavedBool)_edgeScrollingField.GetValue(this);
-            //DebugLog.Log($"[IXM] edgeScrolling: {edgeScrolling}");
-
             if (!(bool)edgeScrolling)
                 return;
 
@@ -128,7 +113,6 @@ namespace InvertXMouse.Detours
 
             var velocity = (Vector3)_velocityField.GetValue(this);
             var edgeScrollSensitivity = (SavedFloat)_edgeScrollSensitivity.GetValue(this);
-            //DebugLog.Log($"[IXM] velocity: {velocity}, edgeScrollSensitivity: {edgeScrollSensitivity}");
 
             _velocityField.SetValue(this, velocity + vector3 * (min * 2f * (float)edgeScrollSensitivity) * multiplier * Time.deltaTime);
             this.ClearTarget();
