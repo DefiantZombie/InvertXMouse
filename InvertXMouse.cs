@@ -47,19 +47,5 @@ namespace InvertXMouse
                 throw;
             }
         }
-
-
-        public void OnEnabled()
-        {
-            CameraControllerDetour.Hook();
-            _logger.Info("Enabled");
-        }
-
-
-        public void OnDisabled()
-        {
-            CameraControllerDetour.Unhook();
-            _logger.Info("Disabled");
-        }
     }
 }
