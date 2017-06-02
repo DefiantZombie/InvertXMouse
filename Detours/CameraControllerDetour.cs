@@ -102,7 +102,7 @@ namespace InvertXMouse.Detours
             var mousePosition = Input.mousePosition;
             var width = (float)Screen.width;
             var height = (float)Screen.height;
-            var num1 = 10f;
+            const float num1 = 10f;
             var min = 0.0f;
 
             if ((double)mousePosition.x < (double)num1)
