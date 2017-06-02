@@ -1,13 +1,8 @@
-﻿using ICities;
-using InvertXMouse.Configuration;
-using InvertXMouse.Detours;
+﻿using InvertXMouse.Configuration;
 using InvertXMouse.Logging;
-using System;
-using System.Collections;
 using SexyFishHorse.CitiesSkylines.Infrastructure;
 using SexyFishHorse.CitiesSkylines.Logger;
-using UnityEngine;
-using ILogger = SexyFishHorse.CitiesSkylines.Logger.ILogger;
+using System;
 
 
 namespace InvertXMouse

@@ -1,13 +1,7 @@
-﻿using ColossalFramework.UI;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using SexyFishHorse.CitiesSkylines.Infrastructure.UI;
 using SexyFishHorse.CitiesSkylines.Infrastructure.UI.Configuration;
-using SexyFishHorse.CitiesSkylines.Infrastructure.UI.Extensions;
 using SexyFishHorse.CitiesSkylines.Logger;
 using InvertXMouse.Logging;
 
@@ -53,7 +47,7 @@ namespace InvertXMouse.Configuration
 
 
         [Conditional("DEBUG")]
-        private void ConfigureDebugGroup(IStronglyTypedUiHelper uiHelper)
+        private static void ConfigureDebugGroup(IStronglyTypedUiHelper uiHelper)
         {
             var debugGroup = uiHelper.AddGroup("Debugging");
 
@@ -76,7 +70,7 @@ namespace InvertXMouse.Configuration
 
         private void SaveSetting(string settingKey, object value)
         {
-            _logger.Info("Saving setting {0} with value {1}", settingKey, value);
+            _logger.Info($"Saving setting {settingKey} with value {value}");
 
             ModConfig.Instance.SaveSetting(settingKey, value);
         }
