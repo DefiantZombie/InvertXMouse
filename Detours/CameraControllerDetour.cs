@@ -1,12 +1,15 @@
 ﻿using ColossalFramework;
 using ColossalFramework.UI;
 using InvertXMouse.Configuration;
+using InvertXMouse.Logging;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using SexyFishHorse.CitiesSkylines.Logger;
 using SexyFishHorse.CitiesSkylines.Redirection;
 using SexyFishHorse.CitiesSkylines.Redirection.Attributes;
 using UnityEngine;
+using ILogger = SexyFishHorse.CitiesSkylines.Logger.ILogger;
 
 
 namespace InvertXMouse.Detours
@@ -24,12 +27,18 @@ namespace InvertXMouse.Detours
         private static FieldInfo _velocityField = typeof(CameraController).GetField("m_velocity", BindingFlags.NonPublic | BindingFlags.Instance);
         private static FieldInfo _edgeScrollSensitivity = typeof(CameraController).GetField("m_edgeScrollSensitivity", BindingFlags.NonPublic | BindingFlags.Instance);
 
+        private static ILogger _logger;
 
-        public static void Hook()
+
+        public static void Hook(ILogger logger = null)
         {
             if (_redirects != null) return;
 
+            _logger = logger ?? PanelLogger.Instance;
+
             _redirects = RedirectionUtil.RedirectType(typeof(CameraControllerDetour));
+
+            _logger.Info("CameraController hook set.");
         }
 
 
@@ -43,6 +52,8 @@ namespace InvertXMouse.Detours
             }
 
             _redirects = null;
+
+            _logger.Info("CameraController hook removed.");
         }
 
 
